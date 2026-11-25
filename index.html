@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let's Discuss</title>
+  <link rel="stylesheet" href="index.css" />
+  <!-- Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Let's<span>Discuss</span></a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Feed</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logoutBtn" class="hidden">Logout</a>
+        <a href="login.html" id="loginBtn">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="container">
+
+    <!-- Ask box -->
+    <section class="ask-box" id="askBox">
+      <h2>Ask a question</h2>
+      <form id="askForm">
+        <input
+          type="text"
+          id="qTitle"
+          placeholder="What's your question? (5–200 chars)"
+          maxlength="200"
+          required
+        />
+        <textarea
+          id="qBody"
+          placeholder="Add details... (max 5000 chars)"
+          maxlength="5000"
+          rows="3"
+          required
+        ></textarea>
+        <div class="ask-actions">
+          <span id="askError" class="error"></span>
+          <button type="submit" id="askSubmit">Post</button>
+        </div>
+      </form>
+      <p class="login-hint" id="loginHint">
+        <a href="login.html">Log in</a> to ask a question.
+      </p>
+    </section>
+
+    <!-- Search -->
+    <section class="search-row">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search questions..."
+        autocomplete="off"
+      />
+    </section>
+
+    <!-- Feed -->
+    <section id="feed" class="feed">
+      <p class="loading" id="loading">Loading questions…</p>
+      <p class="empty hidden" id="empty">No questions yet. Be the first to ask!</p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>Let's Discuss · a student Q&amp;A</span>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
