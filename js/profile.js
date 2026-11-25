@@ -4,7 +4,7 @@
 const SUPABASE_URL = "https://gqpxnjttwsxlbzogbria.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcHhuanR0d3N4bGJ6b2dicmlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU1OTc0MDYsImV4cCI6MjExMTE3MzQwNn0.erHEfORvQSXWKl6e8knkaPA7N5h2kQXmq-kl0hNXvos";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ============================================================
 // STATE
@@ -34,7 +34,7 @@ const els = {
 // AUTH
 // ============================================================
 async function initAuth() {
-  const { data } = await supabase.auth.getSession();
+  const { data } = await sb.auth.getSession();
   currentUser = data.session?.user ?? null;
   applyAuthUI();
 
@@ -103,7 +103,7 @@ async function loadMyQuestions() {
   els.qEmpty.classList.add("hidden");
   els.questionsList.innerHTML = "";
 
-  const { data, error, count } = await supabase
+  const { data, error, count } = await sb
     .from("questions")
     .select("id, title, body, created_at", { count: "exact" })
     .eq("author_id", currentUser.id)
@@ -160,7 +160,7 @@ async function deleteQuestion(id, rowEl) {
   btn.disabled = true;
   btn.textContent = "Deleting…";
 
-  const { error } = await supabase
+  const { error } = await sb
     .from("questions")
     .delete()
     .eq("id", id);
@@ -190,7 +190,7 @@ async function loadMyAnswers() {
   els.aEmpty.classList.add("hidden");
   els.answersList.innerHTML = "";
 
-  const { data, error, count } = await supabase
+  const { data, error, count } = await sb
     .from("answers")
     .select("id, body, created_at, question_id, questions(id, title)", { count: "exact" })
     .eq("author_id", currentUser.id)
