@@ -4,7 +4,7 @@
 const SUPABASE_URL = "https://gqpxnjttwsxlbzogbria.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcHhuanR0d3N4bGJ6b2dicmlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU1OTc0MDYsImV4cCI6MjExMTE3MzQwNn0.erHEfORvQSXWKl6e8knkaPA7N5h2kQXmq-kl0hNXvos";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ============================================================
 // STATE
@@ -32,7 +32,7 @@ const els = {
 // AUTH
 // ============================================================
 async function initAuth() {
-  const { data } = await supabase.auth.getSession();
+  const { data } = await sb.auth.getSession();
   currentUser = data.session?.user ?? null;
   applyAuthUI();
 
@@ -60,7 +60,7 @@ els.logoutBtn.addEventListener("click", async (e) => {
 // LOAD QUESTION + ANSWERS
 // ============================================================
 async function loadQuestion() {
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from("questions")
     .select("id, title, body, created_at, author_id, profiles(username)")
     .eq("id", questionId)
@@ -96,7 +96,7 @@ async function loadAnswers() {
   els.answersList.innerHTML = "";
   els.answersEmpty.classList.add("hidden");
 
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from("answers")
     .select("id, body, created_at, author_id, profiles(username)")
     .eq("question_id", questionId)
@@ -161,7 +161,7 @@ els.answerForm.addEventListener("submit", async (e) => {
   els.answerSubmit.disabled = true;
   els.answerSubmit.textContent = "Posting…";
 
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from("answers")
     .insert({
       question_id: questionId,
