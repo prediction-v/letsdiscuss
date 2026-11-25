@@ -32,7 +32,7 @@ let allQuestions = [];
 // AUTH STATE
 // ============================================================
 async function initAuth() {
-  const { data } = await supabase.auth.getSession();
+  const { data } = await sb.auth.getSession();
   currentUser = data.session?.user ?? null;
   applyAuthUI();
 
@@ -64,7 +64,7 @@ async function loadQuestions() {
   els.empty.classList.add("hidden");
   els.feed.querySelectorAll(".q-card").forEach(n => n.remove());
 
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from("questions")
     .select("id, title, body, created_at, author_id, profiles(username)")
     .order("created_at", { ascending: false })
@@ -177,7 +177,7 @@ els.askForm.addEventListener("submit", async (e) => {
   els.askSubmit.disabled = true;
   els.askSubmit.textContent = "Posting…";
 
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from("questions")
     .insert({ author_id: currentUser.id, title, body })
     .select("id, title, body, created_at, author_id, profiles(username)")
