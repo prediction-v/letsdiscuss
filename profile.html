@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile · Let's Discuss</title>
+  <link rel="stylesheet" href="profile.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
 
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Let's<span>Discuss</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Feed</a>
+        <a href="profile.html" class="active">Profile</a>
+        <a href="#" id="logoutBtn" class="hidden">Logout</a>
+        <a href="login.html" id="loginBtn">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Logged-out state -->
+    <section id="loggedOut" class="logged-out hidden">
+      <p>You need to be logged in to view your profile.</p>
+      <a href="login.html" class="btn-link">Go to login</a>
+    </section>
+
+    <!-- Logged-in state -->
+    <section id="profileContent" class="hidden">
+
+      <!-- Profile header -->
+      <div class="profile-header">
+        <div class="avatar" id="avatar">?</div>
+        <div class="profile-info">
+          <h1 id="username">…</h1>
+          <p class="joined" id="joined">…</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num" id="questionCount">0</span>
+          <span class="stat-label">Questions</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="answerCount">0</span>
+          <span class="stat-label">Answers</span>
+        </div>
+      </div>
+
+      <!-- My questions -->
+      <section class="my-questions">
+        <h2>My questions</h2>
+        <p class="loading" id="qLoading">Loading…</p>
+        <p class="empty hidden" id="qEmpty">You haven't asked any questions yet.</p>
+        <div id="questionsList" class="questions-list"></div>
+      </section>
+
+      <!-- My answers -->
+      <section class="my-answers">
+        <h2>My answers</h2>
+        <p class="loading" id="aLoading">Loading…</p>
+        <p class="empty hidden" id="aEmpty">You haven't answered any questions yet.</p>
+        <div id="answersList" class="answers-list"></div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <script src="profile.js"></script>
+</body>
+</html>
