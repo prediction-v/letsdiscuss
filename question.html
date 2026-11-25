@@ -1,1 +1,67 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question · Let's Discuss</title>
+  <link rel="stylesheet" href="question.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">Let's<span>Discuss</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Feed</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logoutBtn" class="hidden">Logout</a>
+        <a href="login.html" id="loginBtn">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <a href="index.html" class="back">← Back to feed</a>
+
+    <!-- QUESTION -->
+    <section id="questionCard" class="question-card">
+      <p class="loading" id="qLoading">Loading question…</p>
+    </section>
+
+    <!-- ANSWER FORM -->
+    <section class="answer-box hidden" id="answerBox">
+      <h2>Your answer</h2>
+      <form id="answerForm">
+        <textarea
+          id="answerBody"
+          placeholder="Write your answer… (max 3000 chars)"
+          maxlength="3000"
+          rows="4"
+          required
+        ></textarea>
+        <div class="answer-actions">
+          <span class="error" id="answerError"></span>
+          <button type="submit" id="answerSubmit">Post answer</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="login-hint" id="loginHint">
+      <a href="login.html">Log in</a> to post an answer.
+    </p>
+
+    <!-- ANSWERS -->
+    <section class="answers-section">
+      <h2 class="answers-heading" id="answersHeading">Answers</h2>
+      <div id="answersList" class="answers-list"></div>
+      <p class="empty hidden" id="answersEmpty">No answers yet. Be the first!</p>
+    </section>
+
+  </main>
+
+  <script src="question.js"></script>
+</body>
+</html>
