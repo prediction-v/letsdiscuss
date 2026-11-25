@@ -5,7 +5,7 @@
 const SUPABASE_URL = "https://gqpxnjttwsxlbzogbria.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxcHhuanR0d3N4bGJ6b2dicmlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU1OTc0MDYsImV4cCI6MjExMTE3MzQwNn0.erHEfORvQSXWKl6e8knkaPA7N5h2kQXmq-kl0hNXvos";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ============================================================
 // ELEMENTS
@@ -51,7 +51,7 @@ els.tabSignup.addEventListener("click", showSignup);
 // ALREADY LOGGED IN? → redirect to feed
 // ============================================================
 (async () => {
-  const { data } = await supabase.auth.getSession();
+  const { data } = await sb.auth.getSession();
   if (data.session) {
     window.location.href = "index.html";
   }
@@ -66,7 +66,7 @@ els.loginForm.addEventListener("submit", async (e) => {
   els.loginSubmit.disabled = true;
   els.loginSubmit.textContent = "Logging in…";
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error } = await sb.auth.signInWithPassword({
     email: els.loginEmail.value.trim(),
     password: els.loginPassword.value,
   });
@@ -108,7 +108,7 @@ els.signupForm.addEventListener("submit", async (e) => {
   els.signupSubmit.textContent = "Creating…";
 
   // Metadata → picked up by the handle_new_user() trigger
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await sb.auth.signUp({
     email,
     password,
     options: { data: { username } },
